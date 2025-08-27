@@ -5,51 +5,55 @@
   <title>Dashboard - GreedyRogue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #333;
-    }
-
-    .banner {
-      background: #222;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    .content {
-      padding: 40px;
-      text-align: center;
-    }
-
-    footer {
-      margin-top: 50px;
-      text-align: center;
-      padding: 15px;
-      background: #222;
-      color: white;
-      font-size: 14px;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+    .banner { background: #222; color: white; padding: 20px; text-align: center; font-size: 32px; font-weight: bold; }
+    .content { padding: 40px; text-align: center; }
+    footer { margin-top: 50px; text-align: center; padding: 15px; background: #222; color: white; font-size: 14px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; border: none; background: #007bff; color: white; }
+    button:hover { background: #0056b3; }
   </style>
 </head>
 <body>
 
-  <div class="banner">
-    GreedyRogue Dashboard
-  </div>
+  <div class="banner">GreedyRogue Dashboard</div>
 
   <div class="content">
-    <h2>Welcome, Admin!</h2>
-    <p>You’ve successfully logged in 🎉</p>
+    <h2>Welcome!</h2>
+    <p>You are logged in securely via Firebase Authentication 🎉</p>
+    <button id="logoutBtn">Logout</button>
   </div>
 
-  <footer>
-    © 2025 GreedyRogue
-  </footer>
+  <footer>© 2025 GreedyRogue</footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAPKrI8HTxcHSRnHCIDNPIsfP5cRM3BfT0",
+      authDomain: "greedyrogue-b02af.firebaseapp.com",
+      projectId: "greedyrogue-b02af",
+      storageBucket: "greedyrogue-b02af.firebasestorage.app",
+      messagingSenderId: "1069461463237",
+      appId: "1:1069461463237:web:50d73cfff348c2ab1190ac"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Redirect to login if not authenticated
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        window.location.href = "index.html";
+      }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth).then(() => {
+        window.location.href = "index.html";
+      });
+    });
+  </script>
 
 </body>
 </html>
