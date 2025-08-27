@@ -31,6 +31,45 @@
       margin-top: 0;
     }
 
+    .login-box {
+      background: white;
+      padding: 20px;
+      margin: 30px auto;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background: #0056b3;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
     footer {
       margin-top: 50px;
       text-align: center;
@@ -49,12 +88,44 @@
 
   <div class="content">
     <h2>Welcome to GreedyRogue!</h2>
-    <p>This is a simple GitHub Pages website built with just HTML and CSS.</p>
+    <p>Please log in to continue.</p>
+
+    <!-- Login Box -->
+    <div class="login-box">
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <p id="errorMsg" class="error"></p>
+      </form>
+    </div>
   </div>
 
   <footer>
     © 2025 GreedyRogue
   </footer>
 
+  <script>
+    // Simple demo credentials
+    const validUsername = "admin";
+    const validPassword = "1234";
+
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // stop default form action
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (username === validUsername && password === validPassword) {
+        // Redirect to dashboard
+        window.location.href = "dashboard.html";
+      } else {
+        errorMsg.textContent = "Invalid username or password!";
+      }
+    });
+  </script>
 </body>
 </html>
